@@ -9,6 +9,7 @@ import java.awt.Image;
 
 import javax.swing.JTree;
 
+import backend.LeerCodigo;
 import backend.RespuestaAnalisis;
 
 import javax.swing.JList;
@@ -261,8 +262,20 @@ public class PantallaGrafica extends JFrame{
 		JList<Integer> list = new JList<Integer>();
 		splitPane_1.setRightComponent(list);
 		
-		//RespuestaAnalisis resp = new RespuestaAnalisis();
-		//resp = analizar(path, resp);
+		
+		//////////////////////////////////////////////////////
+		
+		LeerCodigo lc = new LeerCodigo();
+		RespuestaAnalisis resp = new RespuestaAnalisis();
+		
+		String pathTest = "C:\\Users\\Luciano\\Documents\\Universisdad\\2020\\2 - Analisis de Software\\Tests\\test.java";
+		
+		resp = lc.analizar(pathTest, resp);
+		
+		System.out.println(resp);
+		
+		//////////////////////////////////////////////////////
+
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

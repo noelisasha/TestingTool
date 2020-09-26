@@ -8,6 +8,9 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 
 import javax.swing.JTree;
+
+import backend.RespuestaAnalisis;
+
 import javax.swing.JList;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -21,6 +24,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import java.awt.Toolkit;
+
+
 
 public class PantallaGrafica extends JFrame{
 	public PantallaGrafica() {
@@ -237,7 +242,7 @@ public class PantallaGrafica extends JFrame{
 		panel.add(txtLineasVaciasPorc, gbc_txtLineasVaciasPorc);
 		txtLineasVaciasPorc.setColumns(10);
 		
-		JButton Testear = new JButton("New button");
+		JButton Testear = new JButton("Testear");
 		GridBagConstraints gbc_Testear = new GridBagConstraints();
 		gbc_Testear.anchor = GridBagConstraints.BELOW_BASELINE;
 		gbc_Testear.insets = new Insets(0, 0, 5, 5);
@@ -255,6 +260,9 @@ public class PantallaGrafica extends JFrame{
 		
 		JList<Integer> list = new JList<Integer>();
 		splitPane_1.setRightComponent(list);
+		
+		//RespuestaAnalisis resp = new RespuestaAnalisis();
+		//resp = analizar(path, resp);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

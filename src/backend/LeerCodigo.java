@@ -35,13 +35,16 @@ public class LeerCodigo {
 			operandosVolumen = new ArrayList<String>();
 			int lineasDeCodigo = 0;
 			int lineaDeCodigoComentadas = 0;
-			boolean algo = false;
+			int lineasDeCodigoEnBlanco = 0;
 			while (scin.hasNext()) {
 
 				linea = scin.nextLine();
+				
 				lineasDeCodigo += calcularLineasDeCodigo(linea);
 
 				lineaDeCodigoComentadas += calcularLineasDeCodigoComentadas(linea, scin);
+				
+				lineasDeCodigoEnBlanco += calcularLineasDeCodigoEnBlanco(linea);
 
 				complejidadCiclomatica += this.calcularComplejidadCiclomatica(linea);
 
@@ -61,6 +64,7 @@ public class LeerCodigo {
 			resp.setHalsteadEsfuerzo(halsteadEsfuerzo);
 			resp.setLineasDeCodigo(lineasDeCodigo);
 			resp.setLineasComentadas(lineaDeCodigoComentadas);
+			resp.setLineasEnBlanco(lineasDeCodigoEnBlanco);
 
 			scin.close();
 
@@ -71,6 +75,14 @@ public class LeerCodigo {
 		return resp;
 	}
 
+	public int calcularLineasDeCodigoEnBlanco(String linea) {
+		int resultado = 0;
+		if(linea.trim().isEmpty()) {
+			resultado ++;
+		}
+		return resultado;
+	}
+	
 	public int calcularLineasDeCodigoComentadas(String linea, Scanner scin) {
 		int resultado = 0;
 		String nuevaLinea;

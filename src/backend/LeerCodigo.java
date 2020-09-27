@@ -2,12 +2,18 @@ package backend;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class LeerCodigo {
 	
+	private ArrayList<String> operadores = new ArrayList<String>(Arrays.asList("if","while","for","else","(",")","&&","||","int","float","String","public","static","void","<",">","+","-","/","*","System.out.println"));
+	private ArrayList<String> operadoresVolumen = new ArrayList<String>();
+	private ArrayList<String> operandosVolumen = new ArrayList<String>();
+	private double nivelLenguaje = 1.84348;
+	
 	public RespuestaAnalisis analizar(String path, RespuestaAnalisis resp) {
-		
 		try {
 			Scanner scin = new Scanner(new FileReader(path));
 			
@@ -17,17 +23,37 @@ public class LeerCodigo {
 			
 			Integer complejidadCiclomatica = 0;
 			
+			int halsteadLongitud = 0;
+			
+			double halsteadVolumen = 0;
+			
+			double halsteadEsfuerzo = 0;
+			
+			operadoresVolumen = new ArrayList<String>();
+			operandosVolumen = new ArrayList<String>();
+			
 			while(scin.hasNext()) {
 				
 				linea = scin.nextLine();
 				
 				complejidadCiclomatica += this.calcularComplejidadCiclomatica(linea);
 				
+				halsteadLongitud += this.calcularHalsteadLongitud(linea);
+				
+				halsteadVolumen += this.calcularHalsteadVolumen(linea);
+				
 				cantLineasTotales++;
 			}
 			
+			halsteadVolumen = halsteadLongitud * Math.log(halsteadVolumen) / Math.log(2);
+			
+			halsteadEsfuerzo = halsteadVolumen / nivelLenguaje;
+			
 			resp.setLineasTotales(cantLineasTotales);
 			resp.setComplejidadCiclomatica(complejidadCiclomatica);
+			resp.setHalsteadLongitud(halsteadLongitud);
+			resp.setHalsteadVolumen(halsteadVolumen);
+			resp.setHalsteadEsfuerzo(halsteadEsfuerzo);
 			
 			scin.close();
 			
@@ -56,5 +82,60 @@ public class LeerCodigo {
 		}
 		return resultado;
 	}
+	
+	public int calcularHalsteadLongitud(String cad) {
+		 int resultado = 0, cantOperadores, indexOperador;
+		 String cadenaAux = cad.replaceAll(" ", "");
+		 if(cad.contains("//")){
+			 return 0;			 
+		 }
+		 cantOperadores = operadores.size();
+		 //Cuento los operadores
+		 for(int i=0; i<cantOperadores; i++) {
+			 String opActual = operadores.get(i);
+			 indexOperador = cadenaAux.indexOf(opActual);
+			 while(indexOperador != -1) {
+				 cadenaAux = cadenaAux.replace(opActual, "º");
+				 indexOperador = cadenaAux.indexOf(opActual);
+			 }
+			 resultado = cadenaAux.split("º").length;
+		 }
+		 //El resto son los operandos
+		 for (String str : cadenaAux.split("º")) {
+			if(!str.isEmpty())
+				resultado++;
+		}
+		 return resultado;
+	 }
+	
+	public int calcularHalsteadVolumen(String cad) {
+		 int resultado = 0, cantOperadores, indexOperador;
+		 String cadenaAux = cad.replaceAll(" ", "");
+		 if(cad.contains("//")){
+			 return 0;			 
+		 }
+		 cantOperadores = operadores.size();
+		 for(int i=0; i<cantOperadores; i++) {
+			 String opActual = operadores.get(i);
+			 indexOperador = cadenaAux.indexOf(opActual);
+			 while(indexOperador != -1) {
+				 cadenaAux = cadenaAux.replace(opActual, "º");
+				 indexOperador = cadenaAux.indexOf(opActual);
+			 }
+			 //Cuento solo la primer aparicion del operador
+			 if(!operadoresVolumen.contains(opActual)) {
+				 operadoresVolumen.add(opActual);
+				 resultado++;
+			 }
+		 }
+		 for (String str : cadenaAux.split("º")) {
+			 //Cuento solo la primera aparicion del operando
+			if(!str.isEmpty() && !operandosVolumen.contains(str)) {
+				operandosVolumen.add(str);
+				resultado++;
+			}
+		}
+		 return resultado;
+	 }
 
 }

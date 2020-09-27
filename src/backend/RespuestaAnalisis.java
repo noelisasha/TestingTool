@@ -11,8 +11,8 @@ public class RespuestaAnalisis {
 	private Integer fanIn;
 	private Integer fanOut;
 	private Integer halsteadLongitud;
-	private Float halsteadVolumen;
-	private Float halsteadEsfuerzo; //ES FLOAT????
+	private double halsteadVolumen;
+	private double halsteadEsfuerzo; //ES FLOAT????
 	
 
 
@@ -117,22 +117,22 @@ public class RespuestaAnalisis {
 	}
 
 
-	public Float getHalsteadVolumen() {
+	public double getHalsteadVolumen() {
 		return halsteadVolumen;
 	}
 
 
-	public void setHalsteadVolumen(Float halsteadVolumen) {
+	public void setHalsteadVolumen(double halsteadVolumen) {
 		this.halsteadVolumen = halsteadVolumen;
 	}
 
 
-	public Float getHalsteadEsfuerzo() {
+	public double getHalsteadEsfuerzo() {
 		return halsteadEsfuerzo;
 	}
 
 
-	public void setHalsteadEsfuerzo(Float halsteadEsfuerzo) {
+	public void setHalsteadEsfuerzo(double halsteadEsfuerzo) {
 		this.halsteadEsfuerzo = halsteadEsfuerzo;
 	}
 	

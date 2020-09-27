@@ -268,7 +268,7 @@ public class PantallaGrafica extends JFrame{
 		LeerCodigo lc = new LeerCodigo();
 		RespuestaAnalisis resp = new RespuestaAnalisis();
 		
-		String pathTest = "C:\\Users\\Luciano\\Documents\\Universisdad\\2020\\2 - Analisis de Software\\Tests\\test.java";
+		String pathTest = "C:\\Repo\\EA1\\src\\app\\RAventureros.java";
 		
 		resp = lc.analizar(pathTest, resp);
 		

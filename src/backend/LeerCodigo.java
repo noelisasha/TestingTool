@@ -31,11 +31,12 @@ public class LeerCodigo {
 			
 			operadoresVolumen = new ArrayList<String>();
 			operandosVolumen = new ArrayList<String>();
-			
+			int lineasDeCodigo = 0;
 			while(scin.hasNext()) {
 				
 				linea = scin.nextLine();
 				
+				lineasDeCodigo += calcularLineasDeCodigo(linea);
 				complejidadCiclomatica += this.calcularComplejidadCiclomatica(linea);
 				
 				halsteadLongitud += this.calcularHalsteadLongitud(linea);
@@ -44,16 +45,15 @@ public class LeerCodigo {
 				
 				cantLineasTotales++;
 			}
-			
 			halsteadVolumen = halsteadLongitud * Math.log(halsteadVolumen) / Math.log(2);
 			
 			halsteadEsfuerzo = halsteadVolumen / nivelLenguaje;
-			
 			resp.setLineasTotales(cantLineasTotales);
 			resp.setComplejidadCiclomatica(complejidadCiclomatica);
 			resp.setHalsteadLongitud(halsteadLongitud);
 			resp.setHalsteadVolumen(halsteadVolumen);
 			resp.setHalsteadEsfuerzo(halsteadEsfuerzo);
+			resp.setLineasDeCodigo(lineasDeCodigo);
 			
 			scin.close();
 			
@@ -64,6 +64,14 @@ public class LeerCodigo {
 		return resp;
 	}
 	
+	public int calcularLineasDeCodigo(String linea) {
+		int resultado = 0;
+		String lineaSinEspacios = linea.trim();
+		if(lineaSinEspacios.length() > 0) {
+			resultado++;
+		}
+		return resultado;
+	}
 	
 	public int calcularComplejidadCiclomatica(String linea) {
 		int resultado = 0;

@@ -1,4 +1,4 @@
-package pk;
+package frontend;
 
 public class ProbarPantalla {
 	

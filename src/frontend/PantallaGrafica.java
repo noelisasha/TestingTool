@@ -20,7 +20,6 @@ import javax.swing.JMenu;
 import javax.swing.JSplitPane;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -42,36 +41,22 @@ public class PantallaGrafica extends JFrame{
 		
 		JPanel panel = new JPanel();
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{17, 288, 0, 0, 0, 80, 80, 0, 0};
+		gbl_panel.columnWidths = new int[]{17, 180, 50, 180, 50, 0, 0};
 		gbl_panel.rowHeights = new int[]{38, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblNewLabel_2 = new JLabel("Resultados del Testeo");
 		lblNewLabel_2.setFont(new Font("Dialog", Font.BOLD, 15));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.gridwidth = 6;
+		gbc_lblNewLabel_2.gridwidth = 4;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_2.gridx = 1;
 		gbc_lblNewLabel_2.gridy = 0;
 		panel.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		JLabel lblNewLabel = new JLabel("Total");
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 5;
-		gbc_lblNewLabel.gridy = 1;
-		panel.add(lblNewLabel, gbc_lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("Porcentaje");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 6;
-		gbc_lblNewLabel_1.gridy = 1;
-		panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
-		
-		JLabel lbl1 = new JLabel("Cantidad total de l\u00EDneas");
+		JLabel lbl1 = new JLabel("Cant. de l\u00EDneas totales:");
 		GridBagConstraints gbc_lbl1 = new GridBagConstraints();
 		gbc_lbl1.anchor = GridBagConstraints.WEST;
 		gbc_lbl1.insets = new Insets(0, 0, 5, 5);
@@ -84,55 +69,35 @@ public class PantallaGrafica extends JFrame{
 		GridBagConstraints gbc_txtLineasTotal = new GridBagConstraints();
 		gbc_txtLineasTotal.insets = new Insets(0, 0, 5, 5);
 		gbc_txtLineasTotal.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtLineasTotal.gridx = 5;
+		gbc_txtLineasTotal.gridx = 2;
 		gbc_txtLineasTotal.gridy = 2;
 		panel.add(txtLineasTotal, gbc_txtLineasTotal);
 		txtLineasTotal.setColumns(10);
 		
-		txtLineasPorc = new JTextField();
-		txtLineasPorc.setEditable(false);
-		GridBagConstraints gbc_txtLineasPorc = new GridBagConstraints();
-		gbc_txtLineasPorc.insets = new Insets(0, 0, 5, 5);
-		gbc_txtLineasPorc.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtLineasPorc.gridx = 6;
-		gbc_txtLineasPorc.gridy = 2;
-		panel.add(txtLineasPorc, gbc_txtLineasPorc);
-		txtLineasPorc.setColumns(10);
+		lblComplex = new JLabel("Complejidad Ciclom\u00E1tica:");
+		GridBagConstraints gbc_lblComplex = new GridBagConstraints();
+		gbc_lblComplex.anchor = GridBagConstraints.WEST;
+		gbc_lblComplex.insets = new Insets(0, 0, 5, 5);
+		gbc_lblComplex.gridx = 3;
+		gbc_lblComplex.gridy = 2;
+		panel.add(lblComplex, gbc_lblComplex);
 		
-		JLabel lbl2 = new JLabel("Total de caracteres");
-		GridBagConstraints gbc_lbl2 = new GridBagConstraints();
-		gbc_lbl2.anchor = GridBagConstraints.WEST;
-		gbc_lbl2.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl2.gridx = 1;
-		gbc_lbl2.gridy = 3;
-		panel.add(lbl2, gbc_lbl2);
+		txtComplCiclo = new JTextField();
+		txtComplCiclo.setEditable(false);
+		GridBagConstraints gbc_txtComplCiclo = new GridBagConstraints();
+		gbc_txtComplCiclo.insets = new Insets(0, 0, 5, 5);
+		gbc_txtComplCiclo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtComplCiclo.gridx = 4;
+		gbc_txtComplCiclo.gridy = 2;
+		panel.add(txtComplCiclo, gbc_txtComplCiclo);
+		txtComplCiclo.setColumns(10);
 		
-		txtCaractTotal = new JTextField();
-		txtCaractTotal.setEditable(false);
-		GridBagConstraints gbc_txtCaractTotal = new GridBagConstraints();
-		gbc_txtCaractTotal.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCaractTotal.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCaractTotal.gridx = 5;
-		gbc_txtCaractTotal.gridy = 3;
-		panel.add(txtCaractTotal, gbc_txtCaractTotal);
-		txtCaractTotal.setColumns(10);
-		
-		txtCaractPorc = new JTextField();
-		txtCaractPorc.setEditable(false);
-		GridBagConstraints gbc_txtCaractPorc = new GridBagConstraints();
-		gbc_txtCaractPorc.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCaractPorc.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCaractPorc.gridx = 6;
-		gbc_txtCaractPorc.gridy = 3;
-		panel.add(txtCaractPorc, gbc_txtCaractPorc);
-		txtCaractPorc.setColumns(10);
-		
-		JLabel lbl3 = new JLabel("Cantidad de l\u00EDneas de c\u00F3digo");
+		JLabel lbl3 = new JLabel("Cant. de l\u00EDneas de c\u00F3digo:");
 		GridBagConstraints gbc_lbl3 = new GridBagConstraints();
 		gbc_lbl3.anchor = GridBagConstraints.WEST;
 		gbc_lbl3.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl3.gridx = 1;
-		gbc_lbl3.gridy = 4;
+		gbc_lbl3.gridy = 3;
 		panel.add(lbl3, gbc_lbl3);
 		
 		txtLineasCodTotal = new JTextField();
@@ -140,55 +105,35 @@ public class PantallaGrafica extends JFrame{
 		GridBagConstraints gbc_txtLineasCodTotal = new GridBagConstraints();
 		gbc_txtLineasCodTotal.insets = new Insets(0, 0, 5, 5);
 		gbc_txtLineasCodTotal.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtLineasCodTotal.gridx = 5;
-		gbc_txtLineasCodTotal.gridy = 4;
+		gbc_txtLineasCodTotal.gridx = 2;
+		gbc_txtLineasCodTotal.gridy = 3;
 		panel.add(txtLineasCodTotal, gbc_txtLineasCodTotal);
 		txtLineasCodTotal.setColumns(10);
 		
-		txtLineasCodPorc = new JTextField();
-		txtLineasCodPorc.setEditable(false);
-		GridBagConstraints gbc_txtLineasCodPorc = new GridBagConstraints();
-		gbc_txtLineasCodPorc.insets = new Insets(0, 0, 5, 5);
-		gbc_txtLineasCodPorc.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtLineasCodPorc.gridx = 6;
-		gbc_txtLineasCodPorc.gridy = 4;
-		panel.add(txtLineasCodPorc, gbc_txtLineasCodPorc);
-		txtLineasCodPorc.setColumns(10);
+		lblNewLabel_1 = new JLabel("Fan In:");
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_1.gridx = 3;
+		gbc_lblNewLabel_1.gridy = 3;
+		panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		JLabel lbl4 = new JLabel("Cantidad de caracteres de c\u00F3digo");
-		GridBagConstraints gbc_lbl4 = new GridBagConstraints();
-		gbc_lbl4.anchor = GridBagConstraints.WEST;
-		gbc_lbl4.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl4.gridx = 1;
-		gbc_lbl4.gridy = 5;
-		panel.add(lbl4, gbc_lbl4);
+		txtFanIn = new JTextField();
+		txtFanIn.setEditable(false);
+		GridBagConstraints gbc_txtFanIn = new GridBagConstraints();
+		gbc_txtFanIn.insets = new Insets(0, 0, 5, 5);
+		gbc_txtFanIn.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtFanIn.gridx = 4;
+		gbc_txtFanIn.gridy = 3;
+		panel.add(txtFanIn, gbc_txtFanIn);
+		txtFanIn.setColumns(10);
 		
-		txtCharCodTotal = new JTextField();
-		txtCharCodTotal.setEditable(false);
-		GridBagConstraints gbc_txtCharCodTotal = new GridBagConstraints();
-		gbc_txtCharCodTotal.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCharCodTotal.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCharCodTotal.gridx = 5;
-		gbc_txtCharCodTotal.gridy = 5;
-		panel.add(txtCharCodTotal, gbc_txtCharCodTotal);
-		txtCharCodTotal.setColumns(10);
-		
-		txtCharCodPorc = new JTextField();
-		txtCharCodPorc.setEditable(false);
-		GridBagConstraints gbc_txtCharCodPorc = new GridBagConstraints();
-		gbc_txtCharCodPorc.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCharCodPorc.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCharCodPorc.gridx = 6;
-		gbc_txtCharCodPorc.gridy = 5;
-		panel.add(txtCharCodPorc, gbc_txtCharCodPorc);
-		txtCharCodPorc.setColumns(10);
-		
-		JLabel lbl5 = new JLabel("Cantidad de l\u00EDneas de comentarios");
+		JLabel lbl5 = new JLabel("Cant. de l\u00EDneas comentadas:");
 		GridBagConstraints gbc_lbl5 = new GridBagConstraints();
 		gbc_lbl5.anchor = GridBagConstraints.WEST;
 		gbc_lbl5.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl5.gridx = 1;
-		gbc_lbl5.gridy = 6;
+		gbc_lbl5.gridy = 4;
 		panel.add(lbl5, gbc_lbl5);
 		
 		txtLineaCommTotal = new JTextField();
@@ -196,55 +141,35 @@ public class PantallaGrafica extends JFrame{
 		GridBagConstraints gbc_txtLineaCommTotal = new GridBagConstraints();
 		gbc_txtLineaCommTotal.insets = new Insets(0, 0, 5, 5);
 		gbc_txtLineaCommTotal.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtLineaCommTotal.gridx = 5;
-		gbc_txtLineaCommTotal.gridy = 6;
+		gbc_txtLineaCommTotal.gridx = 2;
+		gbc_txtLineaCommTotal.gridy = 4;
 		panel.add(txtLineaCommTotal, gbc_txtLineaCommTotal);
 		txtLineaCommTotal.setColumns(10);
 		
-		txtLineaCommPorc = new JTextField();
-		txtLineaCommPorc.setEditable(false);
-		GridBagConstraints gbc_txtLineaCommPorc = new GridBagConstraints();
-		gbc_txtLineaCommPorc.insets = new Insets(0, 0, 5, 5);
-		gbc_txtLineaCommPorc.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtLineaCommPorc.gridx = 6;
-		gbc_txtLineaCommPorc.gridy = 6;
-		panel.add(txtLineaCommPorc, gbc_txtLineaCommPorc);
-		txtLineaCommPorc.setColumns(10);
+		lblNewLabel_4 = new JLabel("Fan Out:");
+		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
+		gbc_lblNewLabel_4.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_4.gridx = 3;
+		gbc_lblNewLabel_4.gridy = 4;
+		panel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
-		JLabel lbl6 = new JLabel("Cantidad de caracteres de comentarios");
-		GridBagConstraints gbc_lbl6 = new GridBagConstraints();
-		gbc_lbl6.anchor = GridBagConstraints.WEST;
-		gbc_lbl6.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl6.gridx = 1;
-		gbc_lbl6.gridy = 7;
-		panel.add(lbl6, gbc_lbl6);
+		txtFanOut = new JTextField();
+		txtFanOut.setEditable(false);
+		GridBagConstraints gbc_txtFanOut = new GridBagConstraints();
+		gbc_txtFanOut.insets = new Insets(0, 0, 5, 5);
+		gbc_txtFanOut.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtFanOut.gridx = 4;
+		gbc_txtFanOut.gridy = 4;
+		panel.add(txtFanOut, gbc_txtFanOut);
+		txtFanOut.setColumns(10);
 		
-		txtCharCommTotal = new JTextField();
-		txtCharCommTotal.setEditable(false);
-		GridBagConstraints gbc_txtCharCommTotal = new GridBagConstraints();
-		gbc_txtCharCommTotal.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCharCommTotal.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCharCommTotal.gridx = 5;
-		gbc_txtCharCommTotal.gridy = 7;
-		panel.add(txtCharCommTotal, gbc_txtCharCommTotal);
-		txtCharCommTotal.setColumns(10);
-		
-		txtCharCommPorc = new JTextField();
-		txtCharCommPorc.setEditable(false);
-		GridBagConstraints gbc_txtCharCommPorc = new GridBagConstraints();
-		gbc_txtCharCommPorc.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCharCommPorc.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCharCommPorc.gridx = 6;
-		gbc_txtCharCommPorc.gridy = 7;
-		panel.add(txtCharCommPorc, gbc_txtCharCommPorc);
-		txtCharCommPorc.setColumns(10);
-		
-		JLabel lbl7 = new JLabel("L\u00EDneas vac\u00EDas");
+		JLabel lbl7 = new JLabel("Cant. de l\u00EDneas en blanco:");
 		GridBagConstraints gbc_lbl7 = new GridBagConstraints();
 		gbc_lbl7.anchor = GridBagConstraints.WEST;
 		gbc_lbl7.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl7.gridx = 1;
-		gbc_lbl7.gridy = 8;
+		gbc_lbl7.gridy = 5;
 		panel.add(lbl7, gbc_lbl7);
 		
 		txtLineasVaciasTotal = new JTextField();
@@ -252,20 +177,46 @@ public class PantallaGrafica extends JFrame{
 		GridBagConstraints gbc_txtLineasVaciasTotal = new GridBagConstraints();
 		gbc_txtLineasVaciasTotal.insets = new Insets(0, 0, 5, 5);
 		gbc_txtLineasVaciasTotal.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtLineasVaciasTotal.gridx = 5;
-		gbc_txtLineasVaciasTotal.gridy = 8;
+		gbc_txtLineasVaciasTotal.gridx = 2;
+		gbc_txtLineasVaciasTotal.gridy = 5;
 		panel.add(txtLineasVaciasTotal, gbc_txtLineasVaciasTotal);
 		txtLineasVaciasTotal.setColumns(10);
 		
-		txtLineasVaciasPorc = new JTextField();
-		txtLineasVaciasPorc.setEditable(false);
-		GridBagConstraints gbc_txtLineasVaciasPorc = new GridBagConstraints();
-		gbc_txtLineasVaciasPorc.insets = new Insets(0, 0, 5, 5);
-		gbc_txtLineasVaciasPorc.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtLineasVaciasPorc.gridx = 6;
-		gbc_txtLineasVaciasPorc.gridy = 8;
-		panel.add(txtLineasVaciasPorc, gbc_txtLineasVaciasPorc);
-		txtLineasVaciasPorc.setColumns(10);
+		txtHalLong = new JLabel("Halstead - Longitud:");
+		GridBagConstraints gbc_txtHalLong = new GridBagConstraints();
+		gbc_txtHalLong.anchor = GridBagConstraints.WEST;
+		gbc_txtHalLong.insets = new Insets(0, 0, 5, 5);
+		gbc_txtHalLong.gridx = 3;
+		gbc_txtHalLong.gridy = 5;
+		panel.add(txtHalLong, gbc_txtHalLong);
+		
+		textField_5 = new JTextField();
+		textField_5.setEditable(false);
+		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
+		gbc_textField_5.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_5.gridx = 4;
+		gbc_textField_5.gridy = 5;
+		panel.add(textField_5, gbc_textField_5);
+		textField_5.setColumns(10);
+		
+		lblNewLabel_3 = new JLabel("Porc. Comentarios:");
+		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
+		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_3.gridx = 1;
+		gbc_lblNewLabel_3.gridy = 6;
+		panel.add(lblNewLabel_3, gbc_lblNewLabel_3);
+		
+		txtLineaCommPorc = new JTextField();
+		txtLineaCommPorc.setEditable(false);
+		GridBagConstraints gbc_txtLineaCommPorc = new GridBagConstraints();
+		gbc_txtLineaCommPorc.insets = new Insets(0, 0, 5, 5);
+		gbc_txtLineaCommPorc.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtLineaCommPorc.gridx = 2;
+		gbc_txtLineaCommPorc.gridy = 6;
+		panel.add(txtLineaCommPorc, gbc_txtLineaCommPorc);
+		txtLineaCommPorc.setColumns(10);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -278,19 +229,10 @@ public class PantallaGrafica extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				txtPathAlArchivo.setText("");
 				txtLineasTotal.setText("");
-				txtLineasPorc.setText("");
-				txtCaractTotal.setText("");
-				txtCaractPorc.setText("");
 				txtLineasCodTotal.setText("");
-				txtLineasCodPorc.setText("");
-				txtCharCodTotal.setText("");
-				txtCharCodPorc.setText("");
 				txtLineaCommTotal.setText("");
 				txtLineaCommPorc.setText("");
-				txtCharCommTotal.setText("");
-				txtCharCommPorc.setText("");
 				txtLineasVaciasTotal.setText("");
-				txtLineasVaciasPorc.setText("");
 			}
 		});
 		
@@ -397,16 +339,21 @@ public class PantallaGrafica extends JFrame{
 				
 				resp = lc.analizar(pathTest, resp);
 				
+				//Primera Columna
 				txtLineasTotal.setText(resp.getLineasDeCodigo().toString());
-				//txtCaractTotal.setText(resp.);
 				txtLineasCodTotal.setText(resp.getLineasTotales().toString());
-				//txtLineasCodPorc.setText(resp.getPorc);
 				txtLineasVaciasTotal.setText(resp.getLineasEnBlanco().toString());
-				//txtLineasVaciasPorc.setText();
 				txtLineaCommTotal.setText(resp.getLineasComentadas().toString());
+				txtLineasVaciasTotal.setText(resp.getLineasEnBlanco().toString());
 				txtLineaCommPorc.setText(resp.getPorcentajeLineasComentadas().toString());
 				
-				
+				//Segunda Columna
+				txtComplCiclo.setText(resp.getComplejidadCiclomatica().toString());
+				txtFanIn.setText(resp.getFanIn().toString());
+				txtFanOut.setText(resp.getFanOut().toString());
+				//txtHalVol.setText(resp.getHalsteadVolumen());
+				//txtHalLong.setText(resp.getHalsteadVolumen().toString());
+				//txtHalEsf.setText(resp.getHalsteadEsfuerzo().toString());
 				
 				System.out.println(resp);
 			}
@@ -420,25 +367,65 @@ public class PantallaGrafica extends JFrame{
 		panel1.add(btnTestear, gbc_btnTestear);
 		
 		splitPane.setRightComponent(panel);
+		
+		txtHalVol = new JLabel("Halstead - Volumen:");
+		GridBagConstraints gbc_txtHalVol = new GridBagConstraints();
+		gbc_txtHalVol.anchor = GridBagConstraints.WEST;
+		gbc_txtHalVol.insets = new Insets(0, 0, 5, 5);
+		gbc_txtHalVol.gridx = 3;
+		gbc_txtHalVol.gridy = 6;
+		panel.add(txtHalVol, gbc_txtHalVol);
+		
+		textField_6 = new JTextField();
+		textField_6.setEditable(false);
+		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
+		gbc_textField_6.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_6.gridx = 4;
+		gbc_textField_6.gridy = 6;
+		panel.add(textField_6, gbc_textField_6);
+		textField_6.setColumns(10);
+		
+		txtHalEsf = new JLabel("Halstead - Esfuerzo:");
+		GridBagConstraints gbc_txtHalEsf = new GridBagConstraints();
+		gbc_txtHalEsf.anchor = GridBagConstraints.WEST;
+		gbc_txtHalEsf.insets = new Insets(0, 0, 5, 5);
+		gbc_txtHalEsf.gridx = 3;
+		gbc_txtHalEsf.gridy = 7;
+		panel.add(txtHalEsf, gbc_txtHalEsf);
+		
+		textField_7 = new JTextField();
+		textField_7.setEditable(false);
+		GridBagConstraints gbc_textField_7 = new GridBagConstraints();
+		gbc_textField_7.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_7.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_7.gridx = 4;
+		gbc_textField_7.gridy = 7;
+		panel.add(textField_7, gbc_textField_7);
+		textField_7.setColumns(10);
 	}
 	private static final long serialVersionUID = 8591170168706138850L;
 	private JTextField txtLineasTotal;
-	private JTextField txtLineasPorc;
-	private JTextField txtCaractTotal;
-	private JTextField txtCaractPorc;
 	private JTextField txtLineasCodTotal;
-	private JTextField txtLineasCodPorc;
-	private JTextField txtCharCodTotal;
-	private JTextField txtCharCodPorc;
 	private JTextField txtLineaCommTotal;
 	private JTextField txtLineaCommPorc;
-	private JTextField txtCharCommTotal;
-	private JTextField txtCharCommPorc;
 	private JTextField txtLineasVaciasTotal;
-	private JTextField txtLineasVaciasPorc;
 	private JTextField txtPathAlArchivo;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private JLabel lblNewLabel_3;
+	private JLabel lblComplex;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_4;
+	private JLabel txtHalLong;
+	private JLabel txtHalVol;
+	private JLabel txtHalEsf;
+	private JTextField txtComplCiclo;
+	private JTextField txtFanIn;
+	private JTextField txtFanOut;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
 	
 	
 }

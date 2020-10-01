@@ -345,7 +345,7 @@ public class PantallaGrafica extends JFrame{
 				txtLineasVaciasTotal.setText(resp.getLineasEnBlanco().toString());
 				txtLineaCommTotal.setText(resp.getLineasComentadas().toString());
 				txtLineasVaciasTotal.setText(resp.getLineasEnBlanco().toString());
-				txtLineaCommPorc.setText(resp.getPorcentajeLineasComentadas().toString());
+				//txtLineaCommPorc.setText(resp.getPorcentajeLineasComentadas().toString());
 				
 				//Segunda Columna
 				txtComplCiclo.setText(resp.getComplejidadCiclomatica().toString());

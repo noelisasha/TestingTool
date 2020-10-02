@@ -340,8 +340,8 @@ public class PantallaGrafica extends JFrame{
 				resp = lc.analizar(pathTest, resp);
 				
 				//Primera Columna
-				txtLineasTotal.setText(resp.getLineasDeCodigo().toString());
-				txtLineasCodTotal.setText(resp.getLineasTotales().toString());
+				txtLineasTotal.setText(resp.getLineasTotales().toString());
+				txtLineasCodTotal.setText(resp.getLineasDeCodigo().toString());
 				txtLineasVaciasTotal.setText(resp.getLineasEnBlanco().toString());
 				txtLineaCommTotal.setText(resp.getLineasComentadas().toString());
 				txtLineasVaciasTotal.setText(resp.getLineasEnBlanco().toString());
@@ -349,8 +349,8 @@ public class PantallaGrafica extends JFrame{
 				
 				//Segunda Columna
 				txtComplCiclo.setText(resp.getComplejidadCiclomatica().toString());
-				txtFanIn.setText(resp.getFanIn().toString());
-				txtFanOut.setText(resp.getFanOut().toString());
+				//txtFanIn.setText(resp.getFanIn().toString());
+				//txtFanOut.setText(resp.getFanOut().toString());
 				//txtHalVol.setText(resp.getHalsteadVolumen());
 				//txtHalLong.setText(resp.getHalsteadVolumen().toString());
 				//txtHalEsf.setText(resp.getHalsteadEsfuerzo().toString());

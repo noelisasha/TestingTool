@@ -30,6 +30,12 @@ public class LeerCodigo {
 			double halsteadVolumen = 0;
 
 			double halsteadEsfuerzo = 0;
+			
+			ArrayList<String> clases = new ArrayList<String>();
+			String claseActual = null;
+			
+			ArrayList<String> metodos = new ArrayList<String>();
+			String metodoActual = null;
 
 			operadoresVolumen = new ArrayList<String>();
 			operandosVolumen = new ArrayList<String>();
@@ -51,7 +57,17 @@ public class LeerCodigo {
 				halsteadLongitud += this.calcularHalsteadLongitud(linea);
 
 				halsteadVolumen += this.calcularHalsteadVolumen(linea);
-
+				
+				claseActual = this.obtenerNombreClase(linea);
+				if(claseActual != "") {
+					clases.add(claseActual);
+				}
+				
+				metodoActual = this.obtenerNombreMetodo(linea);
+				if(metodoActual != "") {
+					metodos.add(metodoActual);
+				}
+				
 				cantLineasTotales++;
 			}
 			halsteadVolumen = halsteadLongitud * Math.log(halsteadVolumen) / Math.log(2);
@@ -65,6 +81,8 @@ public class LeerCodigo {
 			resp.setLineasDeCodigo(lineasDeCodigo);
 			resp.setLineasComentadas(lineaDeCodigoComentadas);
 			resp.setLineasEnBlanco(lineasDeCodigoEnBlanco);
+			resp.setClases(clases);
+			resp.setMetodos(metodos);
 
 			scin.close();
 
@@ -181,6 +199,42 @@ public class LeerCodigo {
 			}
 		}
 		return resultado;
+	}
+	
+	public String obtenerNombreClase(String cad) {
+		int index=cad.indexOf("class"), indexFin = 0;
+		String clase = "";
+		if(index > 0) {
+			index+=6;
+			clase = cad.substring(index);
+			indexFin = clase.indexOf(" ");
+			clase = clase.substring(0, indexFin);
+		}
+		return clase;
+	}
+	
+	public String obtenerNombreMetodo(String cad) {
+		ArrayList<String> arrayValoresDefecto = new ArrayList<String>();
+		String nombreMetodo = "";
+		arrayValoresDefecto.add("public");
+		arrayValoresDefecto.add("protected");
+		arrayValoresDefecto.add("private");
+		arrayValoresDefecto.add("package");
+		for (String string : arrayValoresDefecto) {
+			if(cad.contains(string) && cad.contains("(") && cad.contains(")") && cad.contains("{")) {
+				int indexFinal = cad.indexOf("(");
+				nombreMetodo = cad.substring(cad.indexOf(string),indexFinal);
+				System.out.println(nombreMetodo);
+				nombreMetodo = nombreMetodo.substring(nombreMetodo.indexOf(" ")+1);
+				System.out.println(nombreMetodo);
+				if(nombreMetodo.indexOf(" ") > 0)
+					nombreMetodo = nombreMetodo.substring(nombreMetodo.indexOf(" ")+1);
+				else
+					nombreMetodo = "";
+				System.out.println(nombreMetodo);
+			}
+		}
+		return nombreMetodo;
 	}
 
 }

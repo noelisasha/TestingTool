@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.ArrayList;
+
 public class RespuestaAnalisis {
 	
 	private Integer lineasTotales;
@@ -13,7 +15,18 @@ public class RespuestaAnalisis {
 	private Integer halsteadLongitud;
 	private double halsteadVolumen;
 	private double halsteadEsfuerzo; //ES FLOAT????
-	
+	private ArrayList<String> clases;
+	private ArrayList<String> metodos;
+
+
+	public ArrayList<String> getClases() {
+		return clases;
+	}
+
+
+	public void setClases(ArrayList<String> clases) {
+		this.clases = clases;
+	}
 
 
 	@Override
@@ -23,7 +36,7 @@ public class RespuestaAnalisis {
 				+ ", porcentajeLineasComentadas=" + porcentajeLineasComentadas + ", complejidadCiclomatica="
 				+ complejidadCiclomatica + ", fanIn=" + fanIn + ", fanOut=" + fanOut + ", halsteadLongitud="
 				+ halsteadLongitud + ", halsteadVolumen=" + halsteadVolumen + ", halsteadEsfuerzo=" + halsteadEsfuerzo
-				+ "]";
+				+ ", Clases:" + clases + ", Metodos:" + metodos + "]";
 	}
 
 
@@ -134,6 +147,16 @@ public class RespuestaAnalisis {
 
 	public void setHalsteadEsfuerzo(double halsteadEsfuerzo) {
 		this.halsteadEsfuerzo = halsteadEsfuerzo;
+	}
+
+
+	public ArrayList<String> getMetodos() {
+		return metodos;
+	}
+
+
+	public void setMetodos(ArrayList<String> metodos) {
+		this.metodos = metodos;
 	}
 	
 	

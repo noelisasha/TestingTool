@@ -340,20 +340,20 @@ public class PantallaGrafica extends JFrame{
 				resp = lc.analizar(pathTest, resp);
 				
 				//Primera Columna
-				txtLineasTotal.setText(resp.getLineasTotales().toString());
-				txtLineasCodTotal.setText(resp.getLineasDeCodigo().toString());
-				txtLineasVaciasTotal.setText(resp.getLineasEnBlanco().toString());
-				txtLineaCommTotal.setText(resp.getLineasComentadas().toString());
-				txtLineasVaciasTotal.setText(resp.getLineasEnBlanco().toString());
-				//txtLineaCommPorc.setText(resp.getPorcentajeLineasComentadas().toString());
+				txtLineasTotal.setText((resp.getLineasTotales() != null) ? resp.getLineasTotales().toString() : "");
+				txtLineasCodTotal.setText((resp.getLineasDeCodigo() != null) ? resp.getLineasDeCodigo().toString() : "");
+				txtLineasVaciasTotal.setText((resp.getLineasEnBlanco() != null) ? resp.getLineasEnBlanco().toString() : "");
+				txtLineaCommTotal.setText((resp.getLineasComentadas() != null) ? resp.getLineasComentadas().toString() : "");
+				txtLineasVaciasTotal.setText((resp.getLineasEnBlanco() != null) ? resp.getLineasEnBlanco().toString() : "");
+				txtLineaCommPorc.setText((resp.getPorcentajeLineasComentadas() != null) ? resp.getPorcentajeLineasComentadas().toString() : "");
 				
 				//Segunda Columna
-				txtComplCiclo.setText(resp.getComplejidadCiclomatica().toString());
+				txtComplCiclo.setText((resp.getComplejidadCiclomatica() != null) ? resp.getComplejidadCiclomatica().toString() : "");
 				//txtFanIn.setText(resp.getFanIn().toString());
 				//txtFanOut.setText(resp.getFanOut().toString());
-				//txtHalVol.setText(resp.getHalsteadVolumen());
-				//txtHalLong.setText(resp.getHalsteadVolumen().toString());
-				//txtHalEsf.setText(resp.getHalsteadEsfuerzo().toString());
+				textField_5.setText((resp.getHalsteadVolumen() != null) ? resp.getHalsteadVolumen().toString() : "");
+				textField_6.setText((resp.getHalsteadLongitud() != null) ? resp.getHalsteadLongitud().toString() : "");
+				textField_7.setText((resp.getHalsteadEsfuerzo() != null) ? resp.getHalsteadEsfuerzo().toString() : "");
 				
 				System.out.println(resp);
 			}

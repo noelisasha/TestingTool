@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class RespuestaAnalisis {
 	
+	private String nombreMetodo;
 	private Integer lineasTotales;
 	private Integer lineasDeCodigo;
 	private Integer lineasComentadas;
@@ -17,6 +18,16 @@ public class RespuestaAnalisis {
 	private Double halsteadEsfuerzo; //ES FLOAT????
 	private ArrayList<String> clases;
 	private ArrayList<String> metodos;
+
+
+	public String getNombreMetodo() {
+		return nombreMetodo;
+	}
+
+
+	public void setNombreMetodo(String nombreMetodo) {
+		this.nombreMetodo = nombreMetodo;
+	}
 
 
 	public ArrayList<String> getClases() {

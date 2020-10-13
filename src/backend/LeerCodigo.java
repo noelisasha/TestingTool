@@ -51,9 +51,8 @@ public class LeerCodigo {
 			while (scin.hasNext()) {
 				
 				linea = scin.nextLine();
-				
 				claseActual = this.obtenerNombreClase(linea);
-				if(claseActual != "") {
+				if(!claseActual.equals("")) {
 					clases.add(claseActual);
 					if(claseAnalisisActual.getNombreClase() != "") {
 						claseAnalisis.add(claseAnalisisActual);						
@@ -81,10 +80,9 @@ public class LeerCodigo {
 
 				halsteadVolumen += this.calcularHalsteadVolumen(linea);
 				
-				
 				metodoActual = this.obtenerNombreMetodo(linea);
-				if(metodoActual != "") {
-					if(metodoAnalisis.getNombreMetodo() != "") {
+				if(!metodoActual.equals("")) {
+					if(!metodoAnalisis.getNombreMetodo().equals("")) {
 						halsteadVolumen = halsteadLongitud * Math.log(halsteadVolumen) / Math.log(2);
 						halsteadEsfuerzo = halsteadVolumen / nivelLenguaje;
 						metodoAnalisis.setLineasTotales(cantLineasTotales);
@@ -114,7 +112,21 @@ public class LeerCodigo {
 				
 				cantLineasTotales++;
 			}
-			if(claseAnalisisActual.getNombreClase() != "") {
+			if(!metodoAnalisis.getNombreMetodo().equals("")) {
+				halsteadVolumen = halsteadLongitud * Math.log(halsteadVolumen) / Math.log(2);
+				halsteadEsfuerzo = halsteadVolumen / nivelLenguaje;
+				metodoAnalisis.setLineasTotales(cantLineasTotales);
+				metodoAnalisis.setComplejidadCiclomatica(complejidadCiclomatica);
+				metodoAnalisis.setHalsteadLongitud(halsteadLongitud);
+				metodoAnalisis.setHalsteadVolumen(halsteadVolumen);
+				metodoAnalisis.setHalsteadEsfuerzo(halsteadEsfuerzo);
+				metodoAnalisis.setLineasDeCodigo(lineasDeCodigo);
+				metodoAnalisis.setLineasComentadas(lineaDeCodigoComentadas);
+				metodoAnalisis.setLineasEnBlanco(lineasDeCodigoEnBlanco);
+				
+				claseAnalisisActual.addMetodo(metodoAnalisis);
+			}
+			if(!claseAnalisisActual.getNombreClase().equals("")) {
 				claseAnalisis.add(claseAnalisisActual);						
 			}
 			archivoAnalisis.setClases(claseAnalisis);
@@ -251,9 +263,9 @@ public class LeerCodigo {
 	}
 	
 	public String obtenerNombreClase(String cad) {
-		int index=cad.indexOf("class"), indexFin = 0;
+		int index=cad.indexOf("class"), indexFin = 0, indexComilla=cad.indexOf('"');
 		String clase = "";
-		if(index > 0) {
+		if(index > 0 && indexComilla == -1 ) {
 			index+=6;
 			clase = cad.substring(index);
 			indexFin = clase.indexOf(" ");

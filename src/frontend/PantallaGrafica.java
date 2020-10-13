@@ -15,6 +15,7 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 
 import javax.swing.JTextField;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuBar;
@@ -28,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 
 public class PantallaGrafica extends JFrame{
@@ -36,6 +38,7 @@ public class PantallaGrafica extends JFrame{
 	
 	public PantallaGrafica() {
 		setTitle("Herramienta de Testeo");
+		
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -257,16 +260,16 @@ public class PantallaGrafica extends JFrame{
 		mnNewMenu.add(menuSalir);
 		
 		JSplitPane splitPane = new JSplitPane();
-		splitPane.setResizeWeight(0.3);
+		splitPane.setResizeWeight(1.0);
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		getContentPane().add(splitPane, BorderLayout.CENTER);
 		
 		JPanel panel1 = new JPanel();
 		splitPane.setLeftComponent(panel1);
 		GridBagLayout gbl_panel1 = new GridBagLayout();
-		gbl_panel1.columnWidths = new int[]{27, 195, 150, 150, 150, 27, 0};
+		gbl_panel1.columnWidths = new int[]{27, 195, 195, 150, 150, 27, 0};
 		gbl_panel1.rowHeights = new int[]{32, 0, 0, 0};
-		gbl_panel1.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel1.columnWeights = new double[]{1.0, 1.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_panel1.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel1.setLayout(gbl_panel1);
 		
@@ -296,7 +299,6 @@ public class PantallaGrafica extends JFrame{
 		textField_3.setColumns(10);
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
 		gbc_textField_3.gridheight = 3;
-		gbc_textField_3.insets = new Insets(0, 0, 5, 0);
 		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField_3.gridx = 5;
 		gbc_textField_3.gridy = 0;
@@ -311,26 +313,6 @@ public class PantallaGrafica extends JFrame{
 		gbc_txtPathAlArchivo.gridy = 1;
 		panel1.add(txtPathAlArchivo, gbc_txtPathAlArchivo);
 		txtPathAlArchivo.setColumns(10);
-		
-		JButton btnExaminar = new JButton("Examinar...");
-		btnExaminar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser fileChooser = new JFileChooser();
-				int seleccion = fileChooser.showOpenDialog(btnExaminar);
-				if (seleccion == JFileChooser.APPROVE_OPTION)
-				{
-				   String path = fileChooser.getSelectedFile().getAbsolutePath();
-				   txtPathAlArchivo.setText(path);
-				}
-			}
-		});
-		
-		
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton.gridx = 1;
-		gbc_btnNewButton.gridy = 2;
-		panel1.add(btnExaminar, gbc_btnNewButton);
 		
 		btnTestear = new JButton("Testear");
 		btnTestear.addActionListener(new ActionListener() {
@@ -374,11 +356,48 @@ public class PantallaGrafica extends JFrame{
 				
 			}
 		});
+		
+		JButton btnExaminar = new JButton("Examinar...");
+		btnExaminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fileChooser = new JFileChooser();
+				int seleccion = fileChooser.showOpenDialog(btnExaminar);
+				if (seleccion == JFileChooser.APPROVE_OPTION)
+				{
+				   String path = fileChooser.getSelectedFile().getAbsolutePath();
+				   txtPathAlArchivo.setText(path);
+				}
+			}
+		});
+		
+		cmbClases = new JComboBox();
+		GridBagConstraints gbc_cmbClases = new GridBagConstraints();
+		gbc_cmbClases.insets = new Insets(0, 0, 0, 5);
+		gbc_cmbClases.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cmbClases.gridx = 1;
+		gbc_cmbClases.gridy = 2;
+		panel1.add(cmbClases, gbc_cmbClases);
+		//cmbClases.setModel(new DefaultComboBoxModel<String>(respMetodo.getClases()));
+		
+		cmbMetodos = new JComboBox();
+		GridBagConstraints gbc_cmbMetodos = new GridBagConstraints();
+		gbc_cmbMetodos.insets = new Insets(0, 0, 0, 5);
+		gbc_cmbMetodos.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cmbMetodos.gridx = 2;
+		gbc_cmbMetodos.gridy = 2;
+		panel1.add(cmbMetodos, gbc_cmbMetodos);
+		
+		
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.gridx = 3;
+		gbc_btnNewButton.gridy = 2;
+		panel1.add(btnExaminar, gbc_btnNewButton);
 		btnTestear.setMinimumSize(new Dimension(97, 26));
 		btnTestear.setMaximumSize(new Dimension(97, 26));
 		GridBagConstraints gbc_btnTestear = new GridBagConstraints();
 		gbc_btnTestear.insets = new Insets(0, 0, 0, 5);
-		gbc_btnTestear.gridx = 2;
+		gbc_btnTestear.gridx = 4;
 		gbc_btnTestear.gridy = 2;
 		panel1.add(btnTestear, gbc_btnTestear);
 		
@@ -442,6 +461,8 @@ public class PantallaGrafica extends JFrame{
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
+	private JComboBox cmbClases;
+	private JComboBox cmbMetodos;
 	
 	
 }

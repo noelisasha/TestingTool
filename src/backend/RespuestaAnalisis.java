@@ -20,6 +20,14 @@ public class RespuestaAnalisis {
 	private ArrayList<String> metodos;
 
 
+	public RespuestaAnalisis() {
+		this.nombreMetodo = "";
+	}
+	
+	public RespuestaAnalisis(String nombre) {
+		this.nombreMetodo = nombre;
+	}
+	
 	public String getNombreMetodo() {
 		return nombreMetodo;
 	}

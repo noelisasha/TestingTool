@@ -3,6 +3,9 @@ package frontend;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
+
+import backend.ArchivoAnalisis;
+import backend.ClaseAnalisis;
 import backend.LeerCodigo;
 import backend.RespuestaAnalisis;
 
@@ -334,10 +337,24 @@ public class PantallaGrafica extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				LeerCodigo lc = new LeerCodigo();
 				RespuestaAnalisis resp = new RespuestaAnalisis();
+				ArchivoAnalisis respMetodo = new ArchivoAnalisis();
 				
 				String pathTest = txtPathAlArchivo.getText();
 				
-				resp = lc.analizar(pathTest, resp);
+				respMetodo = lc.analizar(pathTest);
+				
+				/*Esto de aca abajo es simplemente para mostrar por pantalla cada clase y sus metodos.
+				 tendriamos que mostrarlo en la ventana cada vez que se selecciona un metodo.*/
+				
+				for (ClaseAnalisis clase : respMetodo.getClases()) {
+					System.out.println("Clase:" + clase.getNombreClase());
+					for (RespuestaAnalisis metodo : clase.getMetodos()) {
+						System.out.println("Metodo:" + metodo.getNombreMetodo());
+						System.out.println(metodo.toString());
+						System.out.println("-----------------");
+					}
+					
+				}
 				
 				//Primera Columna
 				txtLineasTotal.setText((resp.getLineasTotales() != null) ? resp.getLineasTotales().toString() : "");
@@ -355,7 +372,6 @@ public class PantallaGrafica extends JFrame{
 				textField_6.setText((resp.getHalsteadLongitud() != null) ? resp.getHalsteadLongitud().toString() : "");
 				textField_7.setText((resp.getHalsteadEsfuerzo() != null) ? resp.getHalsteadEsfuerzo().toString() : "");
 				
-				System.out.println(resp);
 			}
 		});
 		btnTestear.setMinimumSize(new Dimension(97, 26));

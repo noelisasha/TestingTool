@@ -15,7 +15,8 @@ public class LeerCodigo {
 	private ArrayList<String> operandosVolumen = new ArrayList<String>();
 	private double nivelLenguaje = 1.84348;
 
-	public RespuestaAnalisis analizar(String path, RespuestaAnalisis resp) {
+	public ArchivoAnalisis analizar(String path) {
+		ArchivoAnalisis archivoAnalisis = null;
 		try {
 			Scanner scin = new Scanner(new FileReader(path));
 
@@ -31,11 +32,16 @@ public class LeerCodigo {
 
 			double halsteadEsfuerzo = 0;
 			
+			archivoAnalisis = new ArchivoAnalisis();
+			
 			ArrayList<String> clases = new ArrayList<String>();
 			String claseActual = null;
+			ClaseAnalisis claseAnalisisActual = new ClaseAnalisis();
+			ArrayList<ClaseAnalisis> claseAnalisis = new ArrayList<ClaseAnalisis>();
 			
 			ArrayList<String> metodos = new ArrayList<String>();
 			String metodoActual = null;
+			RespuestaAnalisis metodoAnalisis = new RespuestaAnalisis();
 
 			operadoresVolumen = new ArrayList<String>();
 			operandosVolumen = new ArrayList<String>();
@@ -43,8 +49,25 @@ public class LeerCodigo {
 			int lineaDeCodigoComentadas = 0;
 			int lineasDeCodigoEnBlanco = 0;
 			while (scin.hasNext()) {
-
+				
 				linea = scin.nextLine();
+				
+				claseActual = this.obtenerNombreClase(linea);
+				if(claseActual != "") {
+					clases.add(claseActual);
+					if(claseAnalisisActual.getNombreClase() != "") {
+						claseAnalisis.add(claseAnalisisActual);						
+					}
+					claseAnalisisActual = new ClaseAnalisis(claseActual);
+					
+					lineasDeCodigo = 0;
+					lineaDeCodigoComentadas = 0;
+					lineasDeCodigoEnBlanco = 0;
+					complejidadCiclomatica = 0;
+					halsteadLongitud = 0;
+					halsteadVolumen = 0;					
+					cantLineasTotales = 0;
+				}
 				
 				lineasDeCodigo += calcularLineasDeCodigo(linea);
 
@@ -58,31 +81,57 @@ public class LeerCodigo {
 
 				halsteadVolumen += this.calcularHalsteadVolumen(linea);
 				
-				claseActual = this.obtenerNombreClase(linea);
-				if(claseActual != "") {
-					clases.add(claseActual);
-				}
 				
 				metodoActual = this.obtenerNombreMetodo(linea);
 				if(metodoActual != "") {
+					if(metodoAnalisis.getNombreMetodo() != "") {
+						halsteadVolumen = halsteadLongitud * Math.log(halsteadVolumen) / Math.log(2);
+						halsteadEsfuerzo = halsteadVolumen / nivelLenguaje;
+						metodoAnalisis.setLineasTotales(cantLineasTotales);
+						metodoAnalisis.setComplejidadCiclomatica(complejidadCiclomatica);
+						metodoAnalisis.setHalsteadLongitud(halsteadLongitud);
+						metodoAnalisis.setHalsteadVolumen(halsteadVolumen);
+						metodoAnalisis.setHalsteadEsfuerzo(halsteadEsfuerzo);
+						metodoAnalisis.setLineasDeCodigo(lineasDeCodigo);
+						metodoAnalisis.setLineasComentadas(lineaDeCodigoComentadas);
+						metodoAnalisis.setLineasEnBlanco(lineasDeCodigoEnBlanco);
+						
+						claseAnalisisActual.addMetodo(metodoAnalisis);
+						
+					}
+
 					metodos.add(metodoActual);
+					metodoAnalisis = new RespuestaAnalisis(metodoActual);
+					
+					lineasDeCodigo = 0;
+					lineaDeCodigoComentadas = 0;
+					lineasDeCodigoEnBlanco = 0;
+					complejidadCiclomatica = 0;
+					halsteadLongitud = 0;
+					halsteadVolumen = 0;					
+					cantLineasTotales = 0;
 				}
 				
 				cantLineasTotales++;
 			}
-			halsteadVolumen = halsteadLongitud * Math.log(halsteadVolumen) / Math.log(2);
-
-			halsteadEsfuerzo = halsteadVolumen / nivelLenguaje;
-			resp.setLineasTotales(cantLineasTotales);
-			resp.setComplejidadCiclomatica(complejidadCiclomatica);
-			resp.setHalsteadLongitud(halsteadLongitud);
-			resp.setHalsteadVolumen(halsteadVolumen);
-			resp.setHalsteadEsfuerzo(halsteadEsfuerzo);
-			resp.setLineasDeCodigo(lineasDeCodigo);
-			resp.setLineasComentadas(lineaDeCodigoComentadas);
-			resp.setLineasEnBlanco(lineasDeCodigoEnBlanco);
-			resp.setClases(clases);
-			resp.setMetodos(metodos);
+			if(claseAnalisisActual.getNombreClase() != "") {
+				claseAnalisis.add(claseAnalisisActual);						
+			}
+			archivoAnalisis.setClases(claseAnalisis);
+			
+//			halsteadVolumen = halsteadLongitud * Math.log(halsteadVolumen) / Math.log(2);
+//
+//			halsteadEsfuerzo = halsteadVolumen / nivelLenguaje;
+//			resp.setLineasTotales(cantLineasTotales);
+//			resp.setComplejidadCiclomatica(complejidadCiclomatica);
+//			resp.setHalsteadLongitud(halsteadLongitud);
+//			resp.setHalsteadVolumen(halsteadVolumen);
+//			resp.setHalsteadEsfuerzo(halsteadEsfuerzo);
+//			resp.setLineasDeCodigo(lineasDeCodigo);
+//			resp.setLineasComentadas(lineaDeCodigoComentadas);
+//			resp.setLineasEnBlanco(lineasDeCodigoEnBlanco);
+//			resp.setClases(clases);
+//			resp.setMetodos(metodos);
 
 			scin.close();
 
@@ -90,7 +139,7 @@ public class LeerCodigo {
 			System.err.println(e.getMessage());
 		}
 
-		return resp;
+		return archivoAnalisis;
 	}
 
 	public int calcularLineasDeCodigoEnBlanco(String linea) {
@@ -224,14 +273,11 @@ public class LeerCodigo {
 			if(cad.contains(string) && cad.contains("(") && cad.contains(")") && cad.contains("{")) {
 				int indexFinal = cad.indexOf("(");
 				nombreMetodo = cad.substring(cad.indexOf(string),indexFinal);
-				System.out.println(nombreMetodo);
 				nombreMetodo = nombreMetodo.substring(nombreMetodo.indexOf(" ")+1);
-				System.out.println(nombreMetodo);
 				if(nombreMetodo.indexOf(" ") > 0)
 					nombreMetodo = nombreMetodo.substring(nombreMetodo.indexOf(" ")+1);
 				else
 					nombreMetodo = "";
-				System.out.println(nombreMetodo);
 			}
 		}
 		return nombreMetodo;

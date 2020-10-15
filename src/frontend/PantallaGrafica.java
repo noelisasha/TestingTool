@@ -383,7 +383,7 @@ public class PantallaGrafica extends JFrame{
 				txtLineasVaciasTotal.setText((respFinal.getLineasEnBlanco() != null) ? respFinal.getLineasEnBlanco().toString() : "");
 				txtLineaCommTotal.setText((respFinal.getLineasComentadas() != null) ? respFinal.getLineasComentadas().toString() : "");
 				txtLineasVaciasTotal.setText((respFinal.getLineasEnBlanco() != null) ? respFinal.getLineasEnBlanco().toString() : "");
-				txtLineaCommPorc.setText((respFinal.getPorcentajeLineasComentadas() != null) ? respFinal.getPorcentajeLineasComentadas().toString() : "");
+				txtLineaCommPorc.setText((respFinal.getPorcentajeLineasComentadas() != null) ? String.format("%.2f", respFinal.getPorcentajeLineasComentadas()) : "");
 				
 				//Segunda Columna
 				txtComplCiclo.setText((respFinal.getComplejidadCiclomatica() != null) ? respFinal.getComplejidadCiclomatica().toString() : "");

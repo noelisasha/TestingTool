@@ -48,6 +48,7 @@ public class LeerCodigo {
 			int lineasDeCodigo = 0;
 			int lineaDeCodigoComentadas = 0;
 			int lineasDeCodigoEnBlanco = 0;
+			float porcentajeLineasComentadas = 0;
 			while (scin.hasNext()) {
 				
 				linea = scin.nextLine();
@@ -66,6 +67,7 @@ public class LeerCodigo {
 					halsteadLongitud = 0;
 					halsteadVolumen = 0;					
 					cantLineasTotales = 0;
+					porcentajeLineasComentadas = 0;
 				}
 				
 				lineasDeCodigo += calcularLineasDeCodigo(linea);
@@ -93,7 +95,7 @@ public class LeerCodigo {
 						metodoAnalisis.setLineasDeCodigo(lineasDeCodigo);
 						metodoAnalisis.setLineasComentadas(lineaDeCodigoComentadas);
 						metodoAnalisis.setLineasEnBlanco(lineasDeCodigoEnBlanco);
-						
+						metodoAnalisis.setPorcentajeLineasComentadas(porcentajeLineasComentadas);						
 						claseAnalisisActual.addMetodo(metodoAnalisis);
 						
 					}
@@ -108,9 +110,12 @@ public class LeerCodigo {
 					halsteadLongitud = 0;
 					halsteadVolumen = 0;					
 					cantLineasTotales = 0;
+					porcentajeLineasComentadas = 0;
 				}
 				
 				cantLineasTotales++;
+				porcentajeLineasComentadas = calcularPorcentajeLineasComentadas(lineaDeCodigoComentadas, cantLineasTotales);
+				
 			}
 			if(!metodoAnalisis.getNombreMetodo().equals("")) {
 				halsteadVolumen = halsteadLongitud * Math.log(halsteadVolumen) / Math.log(2);
@@ -123,6 +128,7 @@ public class LeerCodigo {
 				metodoAnalisis.setLineasDeCodigo(lineasDeCodigo);
 				metodoAnalisis.setLineasComentadas(lineaDeCodigoComentadas);
 				metodoAnalisis.setLineasEnBlanco(lineasDeCodigoEnBlanco);
+				metodoAnalisis.setPorcentajeLineasComentadas((porcentajeLineasComentadas));
 				
 				claseAnalisisActual.addMetodo(metodoAnalisis);
 			}
@@ -183,6 +189,14 @@ public class LeerCodigo {
 			resultado++;
 		}
 		return resultado;
+	}
+	
+	public float calcularPorcentajeLineasComentadas(int cantLineasComentadas, int cantLineasTotales) {
+		
+		float porcentajeLineasComentadas = ((float)cantLineasComentadas/(float)cantLineasTotales)*(float)100;
+		
+		return porcentajeLineasComentadas;
+		
 	}
 
 	public int calcularLineasDeCodigo(String linea) {
@@ -269,7 +283,7 @@ public class LeerCodigo {
 			index+=6;
 			clase = cad.substring(index);
 			indexFin = clase.indexOf(" ");
-			clase = clase.substring(0, indexFin);
+			clase = clase.substring(0, indexFin );
 		}
 		return clase;
 	}

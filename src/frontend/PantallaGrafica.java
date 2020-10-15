@@ -28,6 +28,8 @@ import javax.swing.SwingConstants;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 
@@ -36,12 +38,21 @@ public class PantallaGrafica extends JFrame{
 	
 	JButton btnTestear;
 	
+	LeerCodigo lc = new LeerCodigo();
+	RespuestaAnalisis resp = new RespuestaAnalisis();
+	ArchivoAnalisis respArchivo = new ArchivoAnalisis();
+	
+	List<String> clasesNom = new ArrayList<String>();
+	List<String> metodosNom = new ArrayList<String>();
+	
+	String[] clasesStrvec;
+	String[] metodosStrvec;
+	
 	public PantallaGrafica() {
+
 		setTitle("Herramienta de Testeo");
 		
-		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
 		
 		this.setBounds(new Rectangle(703, 460));
 		
@@ -267,17 +278,17 @@ public class PantallaGrafica extends JFrame{
 		JPanel panel1 = new JPanel();
 		splitPane.setLeftComponent(panel1);
 		GridBagLayout gbl_panel1 = new GridBagLayout();
-		gbl_panel1.columnWidths = new int[]{27, 195, 195, 150, 150, 27, 0};
-		gbl_panel1.rowHeights = new int[]{32, 0, 0, 0};
+		gbl_panel1.columnWidths = new int[]{27, 195, 180, 180, 150, 27, 0};
+		gbl_panel1.rowHeights = new int[]{32, 0, 0, 0, 0, 0};
 		gbl_panel1.columnWeights = new double[]{1.0, 1.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel1.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel1.setLayout(gbl_panel1);
 		
 		textField_2 = new JTextField();
 		textField_2.setVisible(false);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
 		gbc_textField_2.gridheight = 3;
-		gbc_textField_2.insets = new Insets(0, 0, 0, 5);
+		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField_2.gridx = 0;
 		gbc_textField_2.gridy = 0;
@@ -298,6 +309,7 @@ public class PantallaGrafica extends JFrame{
 		textField_3.setVisible(false);
 		textField_3.setColumns(10);
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
+		gbc_textField_3.insets = new Insets(0, 0, 5, 0);
 		gbc_textField_3.gridheight = 3;
 		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField_3.gridx = 5;
@@ -314,49 +326,6 @@ public class PantallaGrafica extends JFrame{
 		panel1.add(txtPathAlArchivo, gbc_txtPathAlArchivo);
 		txtPathAlArchivo.setColumns(10);
 		
-		btnTestear = new JButton("Testear");
-		btnTestear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				LeerCodigo lc = new LeerCodigo();
-				RespuestaAnalisis resp = new RespuestaAnalisis();
-				ArchivoAnalisis respMetodo = new ArchivoAnalisis();
-				
-				String pathTest = txtPathAlArchivo.getText();
-				
-				respMetodo = lc.analizar(pathTest);
-				
-				/*Esto de aca abajo es simplemente para mostrar por pantalla cada clase y sus metodos.
-				 tendriamos que mostrarlo en la ventana cada vez que se selecciona un metodo.*/
-				
-				for (ClaseAnalisis clase : respMetodo.getClases()) {
-					System.out.println("Clase:" + clase.getNombreClase());
-					for (RespuestaAnalisis metodo : clase.getMetodos()) {
-						System.out.println("Metodo:" + metodo.getNombreMetodo());
-						System.out.println(metodo.toString());
-						System.out.println("-----------------");
-					}
-					
-				}
-				
-				//Primera Columna
-				txtLineasTotal.setText((resp.getLineasTotales() != null) ? resp.getLineasTotales().toString() : "");
-				txtLineasCodTotal.setText((resp.getLineasDeCodigo() != null) ? resp.getLineasDeCodigo().toString() : "");
-				txtLineasVaciasTotal.setText((resp.getLineasEnBlanco() != null) ? resp.getLineasEnBlanco().toString() : "");
-				txtLineaCommTotal.setText((resp.getLineasComentadas() != null) ? resp.getLineasComentadas().toString() : "");
-				txtLineasVaciasTotal.setText((resp.getLineasEnBlanco() != null) ? resp.getLineasEnBlanco().toString() : "");
-				txtLineaCommPorc.setText((resp.getPorcentajeLineasComentadas() != null) ? resp.getPorcentajeLineasComentadas().toString() : "");
-				
-				//Segunda Columna
-				txtComplCiclo.setText((resp.getComplejidadCiclomatica() != null) ? resp.getComplejidadCiclomatica().toString() : "");
-				//txtFanIn.setText(resp.getFanIn().toString());
-				//txtFanOut.setText(resp.getFanOut().toString());
-				textField_5.setText((resp.getHalsteadVolumen() != null) ? resp.getHalsteadVolumen().toString() : "");
-				textField_6.setText((resp.getHalsteadLongitud() != null) ? resp.getHalsteadLongitud().toString() : "");
-				textField_7.setText((resp.getHalsteadEsfuerzo() != null) ? resp.getHalsteadEsfuerzo().toString() : "");
-				
-			}
-		});
-		
 		JButton btnExaminar = new JButton("Examinar...");
 		btnExaminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -366,40 +335,106 @@ public class PantallaGrafica extends JFrame{
 				{
 				   String path = fileChooser.getSelectedFile().getAbsolutePath();
 				   txtPathAlArchivo.setText(path);
+				   //btnTestear.enable(true);
 				}
 			}
 		});
 		
-		cmbClases = new JComboBox();
+		
+		GridBagConstraints gbc_btnLoadAnalisis = new GridBagConstraints();
+		gbc_btnLoadAnalisis.insets = new Insets(0, 0, 5, 5);
+		gbc_btnLoadAnalisis.gridx = 1;
+		gbc_btnLoadAnalisis.gridy = 2;
+		panel1.add(btnExaminar, gbc_btnLoadAnalisis);
+		
+		btnTestear = new JButton("Testear");
+		btnTestear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				testear();
+			}
+		});
+		btnTestear.setMinimumSize(new Dimension(97, 26));
+		btnTestear.setMaximumSize(new Dimension(97, 26));
+		GridBagConstraints gbc_btnTestear = new GridBagConstraints();
+		gbc_btnTestear.insets = new Insets(0, 0, 5, 5);
+		gbc_btnTestear.gridx = 2;
+		gbc_btnTestear.gridy = 2;
+		panel1.add(btnTestear, gbc_btnTestear);
+		
+		cmbClases = new JComboBox<String>();
 		GridBagConstraints gbc_cmbClases = new GridBagConstraints();
 		gbc_cmbClases.insets = new Insets(0, 0, 0, 5);
 		gbc_cmbClases.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cmbClases.gridx = 1;
-		gbc_cmbClases.gridy = 2;
+		gbc_cmbClases.gridy = 4;
 		panel1.add(cmbClases, gbc_cmbClases);
-		//cmbClases.setModel(new DefaultComboBoxModel<String>(respMetodo.getClases()));
 		
-		cmbMetodos = new JComboBox();
+		btnLoadAnalisis = new JButton("Cargar Analisis");
+		btnLoadAnalisis.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				List<ClaseAnalisis> rspArchList = respArchivo.getClases();
+				List<RespuestaAnalisis> respAnalisis = rspArchList.get(cmbClases.getSelectedIndex()).getMetodos();
+				RespuestaAnalisis respFinal = respAnalisis.get(cmbMetodos.getSelectedIndex());
+				
+				//Primera Columna
+				txtLineasTotal.setText((respFinal.getLineasTotales() != null) ? respFinal.getLineasTotales().toString() : "");
+				txtLineasCodTotal.setText((respFinal.getLineasDeCodigo() != null) ? respFinal.getLineasDeCodigo().toString() : "");
+				txtLineasVaciasTotal.setText((respFinal.getLineasEnBlanco() != null) ? respFinal.getLineasEnBlanco().toString() : "");
+				txtLineaCommTotal.setText((respFinal.getLineasComentadas() != null) ? respFinal.getLineasComentadas().toString() : "");
+				txtLineasVaciasTotal.setText((respFinal.getLineasEnBlanco() != null) ? respFinal.getLineasEnBlanco().toString() : "");
+				txtLineaCommPorc.setText((respFinal.getPorcentajeLineasComentadas() != null) ? respFinal.getPorcentajeLineasComentadas().toString() : "");
+				
+				//Segunda Columna
+				txtComplCiclo.setText((respFinal.getComplejidadCiclomatica() != null) ? respFinal.getComplejidadCiclomatica().toString() : "");
+				//txtFanIn.setText(resp.getFanIn().toString());
+				//txtFanOut.setText(resp.getFanOut().toString());
+				//textField_5.setText((respFinal.getHalsteadLongitud() != null) ? resp.getHalsteadLongitud().toString() : "");
+				textField_6.setText((respFinal.getHalsteadVolumen() != null) ? String.format("%.2f", respFinal.getHalsteadVolumen()) : ""); //resp.getHalsteadVolumen().toString()
+				textField_7.setText((respFinal.getHalsteadEsfuerzo() != null) ? String.format("%.2f", respFinal.getHalsteadEsfuerzo()) : ""); //resp.getHalsteadEsfuerzo().toString()
+				
+			}
+		});
+		
+		btnLoadClass = new JButton("Cargar Metodos");
+		btnLoadClass.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cmbMetodos.removeAllItems();
+				
+				List<ClaseAnalisis> rspArchList = respArchivo.getClases();
+				//rsp.get(cmbClases.getSelectedIndex()).getMetodos();
+				for (RespuestaAnalisis metodo : rspArchList.get(cmbClases.getSelectedIndex()).getMetodos()) {
+					metodosNom.add(metodo.getNombreMetodo());
+				}
+				
+				metodosStrvec = metodosNom.stream().toArray(String[]::new);
+				cmbMetodos.setModel(new DefaultComboBoxModel<String>(metodosStrvec));
+				
+				//btnLoadAnalisis.enable(true);
+			}
+		});
+		GridBagConstraints gbc_btnLoadClass = new GridBagConstraints();
+		gbc_btnLoadClass.insets = new Insets(0, 0, 0, 5);
+		gbc_btnLoadClass.gridx = 2;
+		gbc_btnLoadClass.gridy = 4;
+		panel1.add(btnLoadClass, gbc_btnLoadClass);
+		//String[] strvec = clasesNom.stream().toArray(String[]::new);
+		//cmbClases.setModel(new DefaultComboBoxModel<String>(strvec));
+		
+		cmbMetodos = new JComboBox<String>();
 		GridBagConstraints gbc_cmbMetodos = new GridBagConstraints();
 		gbc_cmbMetodos.insets = new Insets(0, 0, 0, 5);
 		gbc_cmbMetodos.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cmbMetodos.gridx = 2;
-		gbc_cmbMetodos.gridy = 2;
+		gbc_cmbMetodos.gridx = 3;
+		gbc_cmbMetodos.gridy = 4;
 		panel1.add(cmbMetodos, gbc_cmbMetodos);
 		
 		
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton.gridx = 3;
-		gbc_btnNewButton.gridy = 2;
-		panel1.add(btnExaminar, gbc_btnNewButton);
-		btnTestear.setMinimumSize(new Dimension(97, 26));
-		btnTestear.setMaximumSize(new Dimension(97, 26));
-		GridBagConstraints gbc_btnTestear = new GridBagConstraints();
-		gbc_btnTestear.insets = new Insets(0, 0, 0, 5);
-		gbc_btnTestear.gridx = 4;
-		gbc_btnTestear.gridy = 2;
-		panel1.add(btnTestear, gbc_btnTestear);
+		GridBagConstraints gbc_btnCargarAnalisis = new GridBagConstraints();
+		gbc_btnCargarAnalisis.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCargarAnalisis.gridx = 4;
+		gbc_btnCargarAnalisis.gridy = 4;
+		panel1.add(btnLoadAnalisis, gbc_btnCargarAnalisis);
 		
 		splitPane.setRightComponent(panel);
 		
@@ -461,8 +496,44 @@ public class PantallaGrafica extends JFrame{
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
-	private JComboBox cmbClases;
-	private JComboBox cmbMetodos;
+	private JComboBox<String> cmbClases;
+	private JComboBox<String> cmbMetodos;
+	private JButton btnLoadAnalisis;
+	private JButton btnLoadClass;
 	
-	
+	public void testear() {
+		
+		cmbClases.removeAllItems();
+		cmbMetodos.removeAllItems();
+		
+		/*LeerCodigo lc = new LeerCodigo();
+		RespuestaAnalisis resp = new RespuestaAnalisis();
+		ArchivoAnalisis respArchivo = new ArchivoAnalisis();*/
+		
+		String pathTest = txtPathAlArchivo.getText();
+		
+		respArchivo = lc.analizar(pathTest);
+		
+		/*Esto de aca abajo es simplemente para mostrar por pantalla cada clase y sus metodos.
+		 tendriamos que mostrarlo en la ventana cada vez que se selecciona un metodo.*/
+		
+		for (ClaseAnalisis clase : respArchivo.getClases()) {
+			System.out.println("Clase:" + clase.getNombreClase());
+			clasesNom.add(clase.getNombreClase());
+			for (RespuestaAnalisis metodo : clase.getMetodos()) {
+				System.out.println("Metodo:" + metodo.getNombreMetodo());
+				//metodosNom.add(metodo.getNombreMetodo());
+				System.out.println(metodo.toString());
+				System.out.println("-----------------");
+			}
+			
+		}
+		
+		clasesStrvec = clasesNom.stream().toArray(String[]::new);
+		cmbClases.setModel(new DefaultComboBoxModel<String>(clasesStrvec));
+		cmbClases.setSelectedIndex(0);
+		
+		
+		//btnLoadClass.enable(true);
+	}
 }

@@ -15,7 +15,7 @@ public class RespuestaAnalisis {
 	private Integer fanOut;
 	private Integer halsteadLongitud;
 	private Double halsteadVolumen;
-	private Double halsteadEsfuerzo; //ES FLOAT????
+	private Double halsteadEsfuerzo;
 	private ArrayList<String> clases;
 	private ArrayList<String> metodos;
 

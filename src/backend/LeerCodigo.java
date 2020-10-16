@@ -173,13 +173,18 @@ public class LeerCodigo {
 	
 	public int cantFanOut(String linea) {
 		
-		 Pattern pattern = Pattern.compile("[.][a-z]+[()]", Pattern.CASE_INSENSITIVE);
+		int res = 0;
+		//si la linea no esta comentada se fija si es llamada a un metodo
+		if(!linea.contains("//")){
+			Pattern pattern = Pattern.compile("[.][a-z]+[()]", Pattern.CASE_INSENSITIVE);
 		    Matcher matcher = pattern.matcher(linea);
 		    boolean matchFound = matcher.find();
-		    int res = 0;
+		    
 		    if(matchFound) {
 		    	res++;
 		    }
+		}
+		 
 		    return res;
 		    
 	}

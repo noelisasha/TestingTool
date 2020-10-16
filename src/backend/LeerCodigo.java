@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LeerCodigo {
 
@@ -49,6 +51,8 @@ public class LeerCodigo {
 			int lineaDeCodigoComentadas = 0;
 			int lineasDeCodigoEnBlanco = 0;
 			float porcentajeLineasComentadas = 0;
+			int fanOut = 0;
+			
 			while (scin.hasNext()) {
 				
 				linea = scin.nextLine();
@@ -68,6 +72,7 @@ public class LeerCodigo {
 					halsteadVolumen = 0;					
 					cantLineasTotales = 0;
 					porcentajeLineasComentadas = 0;
+					fanOut = 0;
 				}
 				
 				lineasDeCodigo += calcularLineasDeCodigo(linea);
@@ -82,6 +87,8 @@ public class LeerCodigo {
 
 				halsteadVolumen += this.calcularHalsteadVolumen(linea);
 				
+				fanOut += this.cantFanOut(linea);
+				
 				metodoActual = this.obtenerNombreMetodo(linea);
 				if(!metodoActual.equals("")) {
 					if(!metodoAnalisis.getNombreMetodo().equals("")) {
@@ -95,7 +102,8 @@ public class LeerCodigo {
 						metodoAnalisis.setLineasDeCodigo(lineasDeCodigo);
 						metodoAnalisis.setLineasComentadas(lineaDeCodigoComentadas);
 						metodoAnalisis.setLineasEnBlanco(lineasDeCodigoEnBlanco);
-						metodoAnalisis.setPorcentajeLineasComentadas(porcentajeLineasComentadas);						
+						metodoAnalisis.setPorcentajeLineasComentadas(porcentajeLineasComentadas);	
+						metodoAnalisis.setFanOut(fanOut);
 						claseAnalisisActual.addMetodo(metodoAnalisis);
 						
 					}
@@ -111,6 +119,7 @@ public class LeerCodigo {
 					halsteadVolumen = 0;					
 					cantLineasTotales = 0;
 					porcentajeLineasComentadas = 0;
+					fanOut = 0;
 				}
 				
 				cantLineasTotales++;
@@ -129,6 +138,7 @@ public class LeerCodigo {
 				metodoAnalisis.setLineasComentadas(lineaDeCodigoComentadas);
 				metodoAnalisis.setLineasEnBlanco(lineasDeCodigoEnBlanco);
 				metodoAnalisis.setPorcentajeLineasComentadas((porcentajeLineasComentadas));
+				metodoAnalisis.setFanOut(fanOut);
 				
 				claseAnalisisActual.addMetodo(metodoAnalisis);
 			}
@@ -160,6 +170,19 @@ public class LeerCodigo {
 		return archivoAnalisis;
 	}
 
+	
+	public int cantFanOut(String linea) {
+		
+		 Pattern pattern = Pattern.compile("[.][a-z]+[()]", Pattern.CASE_INSENSITIVE);
+		    Matcher matcher = pattern.matcher(linea);
+		    boolean matchFound = matcher.find();
+		    int res = 0;
+		    if(matchFound) {
+		    	res++;
+		    }
+		    return res;
+		    
+	}
 	public int calcularLineasDeCodigoEnBlanco(String linea) {
 		int resultado = 0;
 		if(linea.trim().isEmpty()) {

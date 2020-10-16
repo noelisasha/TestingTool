@@ -388,7 +388,7 @@ public class PantallaGrafica extends JFrame{
 				//Segunda Columna
 				txtComplCiclo.setText((respFinal.getComplejidadCiclomatica() != null) ? respFinal.getComplejidadCiclomatica().toString() : "");
 				//txtFanIn.setText(resp.getFanIn().toString());
-				//txtFanOut.setText(resp.getFanOut().toString());
+				txtFanOut.setText(respFinal.getFanOut().toString());
 				textField_5.setText((respFinal.getHalsteadLongitud() != null) ? respFinal.getHalsteadLongitud().toString() : "");
 				textField_6.setText((respFinal.getHalsteadVolumen() != null) ? String.format("%.2f", respFinal.getHalsteadVolumen()) : ""); //resp.getHalsteadVolumen().toString()
 				textField_7.setText((respFinal.getHalsteadEsfuerzo() != null) ? String.format("%.2f", respFinal.getHalsteadEsfuerzo()) : ""); //resp.getHalsteadEsfuerzo().toString()
